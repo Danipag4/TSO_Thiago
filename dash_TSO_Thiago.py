@@ -68,6 +68,13 @@ fig_Perg.update_layout(xaxis_title="Médias", yaxis_title="Perguntas")
 fig_Perg
 
 #df_filtered2
+coment = st.checkbox("Comentários")
+
+if coment:
+    df_coment = df_filtered2.iloc[:,6:8]
+    df_coment
+
+
 
 #-----------------------------------------------------------------------------------------
 
@@ -91,15 +98,32 @@ fig_DesenvGeral
 #---------------------------------------------------------------------------------
 
 st.write("""
-## Desempenho da TSO por Setor x Competência
-""" ), Compet_Desemp
+## Desempenho Geral dos Avaliados
+""" )
 
-df_filtered3 = df[df["Competencia"] == Compet_Desemp]
+AvalEquipe = st.checkbox("Exibir avaliação da Equipe")
+
+if AvalEquipe:
+   
+
+#df_filtered3 = df[df["Competencia"] == Compet_Desemp]
 #df_filtered3
 
-df_MédiaSetor = df_filtered5.groupby("Setor")[["Auto Avaliação","Avaliador"]].mean().reset_index()
+#df_MédiaSetor = df_filtered5.groupby("Setor")[["Auto Avaliação","Avaliador"]].mean().reset_index()
 #df_MédiaSetor
 
-fig_Setor = px.bar(df_MédiaSetor, y=aval, x="Setor", barmode='group', color_discrete_map = {"Auto Avaliação":"Brown", "Avaliador":"Yellow"})
-fig_Setor.update_layout(xaxis_title="Setores", yaxis_title="Médias")
-fig_Setor
+#fig_Setor = px.bar(df_MédiaSetor, y=aval, x="Setor", barmode='group', color_discrete_map = {"Auto Avaliação":"Brown", "Avaliador":"Yellow"})
+#fig_Setor.update_layout(xaxis_title="Setores", yaxis_title="Médias")
+#fig_Setor
+
+
+
+    df_filtered3 = df
+#df_filtered3
+
+    df_MédiaSetor = df_filtered3.groupby("Nome")[["Auto Avaliação","Avaliador"]].mean().reset_index()
+#df_MédiaSetor
+
+    fig_Setor = px.bar(df_MédiaSetor, x=aval, y="Nome", orientation="h", barmode='group', color_discrete_map = {"Auto Avaliação":"Brown", "Avaliador":"Yellow"})
+    fig_Setor.update_layout(xaxis_title="Média", yaxis_title="Colaborador")
+    fig_Setor
